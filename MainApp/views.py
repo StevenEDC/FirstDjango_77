@@ -53,7 +53,8 @@ def get_item(request, id):
         if item['id'] == id:
              result = f"""
              <h1>Имя: {item["name"]} </h1>
-             <p>Количество: {item["quantity"]}
+             <p>Количество: {item["quantity"]}</p>
+             <a href='/items_list'> Назад </a>
              """
              return HttpResponse(result)
         
@@ -63,7 +64,7 @@ def get_item(request, id):
 def items_list(request):
     result = "<h2>Список товаров</h2><ol>"
     for item in items:
-        result += f"<li>{item['name']}</li>"
+        result += f"<li><a href='/item/{item['id']}'>{item['name']}</li>"
     result += '</ol>'
     return HttpResponse(result)
     
