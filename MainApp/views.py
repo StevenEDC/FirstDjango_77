@@ -21,13 +21,18 @@ items = [
 ]
 
 def home(request):
-    text = """<h1>"Изучаем django"</h1>
-            <strong>Автор</strong>: <i>Иванов И.П.</i>
-            <br><a href="about">about</a></br>
-            <a href="items_list">items_list</a></br>
-            <a href="item">item</a>
-            """
-    return HttpResponse(text)
+    context = {
+        "name": 'Себастьян Перейро',
+        "email": 'my_mail@mail.ru'
+    }
+    return render(request, "index.html", context)
+    # text = """<h1>"Изучаем django"</h1>
+    #         <strong>Автор</strong>: <i>Иванов И.П.</i>
+    #         <br><a href="about">about</a></br>
+    #         <a href="items_list">items_list</a></br>
+    #         <a href="item">item</a>
+    #         """
+    # return HttpResponse(text)
 
 def about(request):
     about_me = f"""
@@ -62,10 +67,14 @@ def get_item(request, id):
     return HttpResponseNotFound(f'Item with id={id} not found')
 
 def items_list(request):
-    result = "<h2>Список товаров</h2><ol>"
-    for item in items:
-        result += f"<li><a href='/item/{item['id']}'>{item['name']}</li>"
-    result += '</ol>'
-    return HttpResponse(result)
-    
+    # result = "<h2>Список товаров</h2><ol>"
+    # for item in items:
+    #     result += f"<li><a href='/item/{item['id']}'>{item['name']}</li>"
+    # result += '</ol>'
+    # return HttpResponse(result)
+    context = {
+        "items": items
+    }
+    # Аргументы render: Запрос(request), Имя шаблона, Контекст(чем заполняем)
+    return render(request, "items-list.html", context)
 
